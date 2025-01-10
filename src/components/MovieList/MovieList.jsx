@@ -10,7 +10,7 @@ const MovieList = ({ movies }) => {
         return (
           <li key={obj.id}>
             <Link to={`/movies/${obj.id.toString()}`} state={location}>
-              <MovieItem title={obj.title} imageUrl={obj.backdrop_path} />
+              <MovieItem title={obj.title} imageUrl={obj.poster_path} />
             </Link>
           </li>
         );

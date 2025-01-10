@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import { fetchMovieById } from "../../services/api";
 
@@ -7,8 +7,7 @@ const MovieDetailsPage = () => {
   const location = useLocation();
   const [movie, setMovie] = useState({});
 
-  const backLinkHref = location.state ?? "/movies";
-  console.log(location);
+  const backLinkHref = useRef(location.state ?? "/movies");
 
   useEffect(() => {
     const getMovieById = async () => {
@@ -21,10 +20,14 @@ const MovieDetailsPage = () => {
 
   return (
     <div>
-      <Link to={backLinkHref}>Go back</Link>
+      <Link to={backLinkHref.current}>Go back</Link>
       <h2>{movie.title}</h2>
-      <Link to="cast">cast</Link>
-      <Link to="reviews">reviews</Link>
+      <Link to="cast" state={{ from: backLinkHref.current }}>
+        cast
+      </Link>
+      <Link to="reviews" state={{ from: backLinkHref.current }}>
+        reviews
+      </Link>
       <Outlet />
     </div>
   );

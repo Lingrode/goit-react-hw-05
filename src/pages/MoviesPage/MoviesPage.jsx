@@ -6,31 +6,34 @@ import MovieList from "../../components/MovieList/MovieList";
 
 const MoviesPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [searchValue, setSearchValue] = useState("");
+  // const [searchValue, setSearchValue] = useState(movieName);
   const [movies, setMovies] = useState([]);
   const movieName = searchParams.get("query") ?? "";
 
   useEffect(() => {
+    if (!movieName.trim()) {
+      setSearchParams({});
+      setMovies([]);
+      return;
+    }
     const getMovieByQuery = async () => {
-      // if (!searchValue.trim()) {
-      //   setSearchParams({});
-      //   setMovies([]);
-      //   return;
-      // }
+      const { results } = await fetchMovieByQuery(movieName);
+      // searchParams.set("query", movieName);
 
-      const { results } = await fetchMovieByQuery(searchValue);
-      searchParams.set("query", searchValue);
-
-      setSearchParams(searchParams);
+      // setSearchParams(searchParams);
       setMovies(results);
     };
 
     getMovieByQuery();
-  }, [searchParams, searchValue, setSearchParams]);
+  }, [movieName, searchParams, setSearchParams]);
+
+  const handleSearch = (value) => {
+    setSearchParams(value.trim() ? { query: value } : {});
+  };
 
   return (
     <div>
-      <SearchBar value={movieName} setSearchValue={setSearchValue} />
+      <SearchBar value={movieName} setSearchValue={handleSearch} />
 
       <MovieList movies={movies} />
     </div>
