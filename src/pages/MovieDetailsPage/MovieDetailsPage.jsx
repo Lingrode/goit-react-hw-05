@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import clsx from "clsx";
 import Header from "../../components/Header/Header";
@@ -6,34 +6,16 @@ import GoBackBtn from "../../components/GoBackBtn/GoBackBtn";
 import Loader from "../../components/Loader/Loader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import { fetchMovieById } from "../../services/api";
+import { useHttp } from "../../hooks/useHttp";
 import { formatYear } from "../../helpers/formatDate";
 import style from "./MovieDetailsPage.module.css";
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const location = useLocation();
-  const [movie, setMovie] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
   const backLinkHref = useRef(location.state ?? "/movies");
 
-  useEffect(() => {
-    const getMovieById = async () => {
-      try {
-        setIsError(false);
-        setIsLoading(true);
-        const movieDetails = await fetchMovieById(movieId);
-        setMovie(movieDetails);
-      } catch (error) {
-        setIsError(true);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    getMovieById();
-  }, [movieId]);
+  const [movie, loading, error] = useHttp(fetchMovieById, movieId);
 
   const getNavLinkClass = (isActive) =>
     clsx(style.link, { [style.active]: isActive });
@@ -42,11 +24,11 @@ const MovieDetailsPage = () => {
     return Math.round(score * 10);
   };
 
-  if (isError) return <ErrorMessage />;
+  if (error) return <ErrorMessage />;
 
   return (
     <>
-      {isLoading ? (
+      {loading ? (
         <Loader />
       ) : (
         <>

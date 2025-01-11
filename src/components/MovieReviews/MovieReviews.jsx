@@ -1,46 +1,29 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import MovieReviewItem from "../MovieReviewItem/MovieReviewItem";
 import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import { fetchMovieReviews } from "../../services/api";
+import { useHttp } from "../../hooks/useHttp";
 import style from "./MovieReviews.module.css";
 
 const MovieReviews = () => {
   const { movieId } = useParams();
-  const [movieReviews, setMovieReviews] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
 
-  useEffect(() => {
-    const getMovieReviews = async () => {
-      try {
-        setIsError(false);
-        setIsLoading(true);
-        const { results } = await fetchMovieReviews(Number(movieId));
-        setMovieReviews(results);
-      } catch (error) {
-        setIsError(true);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const [movieReviews, loading, error] = useHttp(fetchMovieReviews, movieId);
+  const results = movieReviews?.results || [];
 
-    getMovieReviews();
-  }, [movieId]);
+  if (loading) return <Loader />;
+
+  if (error) return <ErrorMessage />;
 
   return (
     <div>
       <div className={style.container}>
         <ul className={style.list}>
-          {isLoading && <Loader />}
-
-          {isError && <ErrorMessage />}
-
-          {!isLoading && !isError && movieReviews.length === 0 ? (
+          {results.length === 0 ? (
             <p>No reviews 😕</p>
           ) : (
-            movieReviews.map(
+            results.map(
               ({
                 id,
                 author,

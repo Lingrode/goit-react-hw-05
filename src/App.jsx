@@ -1,15 +1,21 @@
+import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import Home from "./pages/Home/Home";
-import MoviesPage from "./pages/MoviesPage/MoviesPage";
-import NotFound from "./pages/NotFound/NotFound";
-import MovieDetailsPage from "./pages/MovieDetailsPage/MovieDetailsPage";
-import MovieCast from "./components/MovieCast/MovieCast";
-import MovieReviews from "./components/MovieReviews/MovieReviews";
+const Home = lazy(() => import("./pages/Home/Home"));
+const MoviesPage = lazy(() => import("./pages/MoviesPage/MoviesPage"));
+const NotFound = lazy(() => import("./pages/NotFound/NotFound"));
+const MovieDetailsPage = lazy(() =>
+  import("./pages/MovieDetailsPage/MovieDetailsPage")
+);
+const MovieCast = lazy(() => import("./components/MovieCast/MovieCast"));
+const MovieReviews = lazy(() =>
+  import("./components/MovieReviews/MovieReviews")
+);
+import Loader from "./components/Loader/Loader";
 
 const App = () => {
   return (
-    <>
+    <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/movies" element={<MoviesPage />} />
@@ -19,7 +25,7 @@ const App = () => {
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </>
+    </Suspense>
   );
 };
 
