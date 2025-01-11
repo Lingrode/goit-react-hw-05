@@ -21,8 +21,9 @@ const Home = () => {
 
   return (
     <div>
-      <h1 className={style.title}>Trending movies today</h1>
-
+      <div className={style.container}>
+        <h1 className={style.title}>Trending movies today</h1>
+      </div>
       <MovieList movies={movies} />
     </div>
   );

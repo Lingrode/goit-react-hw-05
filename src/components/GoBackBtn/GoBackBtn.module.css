@@ -1,0 +1,16 @@
+.back {
+  text-decoration: none;
+  padding: 5px 15px;
+  background-color: #ff6900;
+  border: 2px solid #ff6900;
+  border-radius: 10px;
+  color: #fff;
+  transition:
+    background-color 0.3s ease,
+    color 0.4s ease;
+}
+
+.back:hover {
+  background-color: #fff;
+  color: #ff6900;
+}

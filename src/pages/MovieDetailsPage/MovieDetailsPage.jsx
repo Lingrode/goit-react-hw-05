@@ -1,12 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  Link,
-  NavLink,
-  Outlet,
-  useLocation,
-  useParams,
-} from "react-router-dom";
+import { NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import clsx from "clsx";
+import GoBackBtn from "../../components/GoBackBtn/GoBackBtn";
 import { fetchMovieById } from "../../services/api";
 import { formatYear } from "../../helpers/formatDate";
 import style from "./MovieDetailsPage.module.css";
@@ -50,7 +45,7 @@ const MovieDetailsPage = () => {
         <>
           <div className={style.details}>
             <div className={style.container}>
-              <Link to={backLinkHref.current}>Go back</Link>
+              <GoBackBtn link={backLinkHref.current}>Go back</GoBackBtn>
               <div className={style.wrapper}>
                 <img
                   src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}

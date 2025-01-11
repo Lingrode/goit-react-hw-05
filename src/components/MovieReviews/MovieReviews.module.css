@@ -1,0 +1,13 @@
+.container {
+  max-width: 1440px;
+  padding: 0 30px;
+  margin: 0 auto;
+}
+
+.item {
+  margin-bottom: 30px;
+}
+
+.item:last-child {
+  margin-bottom: 0;
+}
