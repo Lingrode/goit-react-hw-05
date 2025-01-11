@@ -13,6 +13,14 @@
   width: 100%;
 }
 
+.image.noImage {
+  width: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
 .image img {
   max-width: 170px;
 }

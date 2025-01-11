@@ -1,4 +1,4 @@
-import React from "react";
+import style from "./SearchBar.module.css";
 
 const SearchBar = ({ setSearchValue, value }) => {
   const handleSubmit = (event) => {
@@ -8,10 +8,18 @@ const SearchBar = ({ setSearchValue, value }) => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="search" defaultValue={value} />
-        <button type="submit">Search</button>
+    <div className={style.wrapper}>
+      <form className={style.form} onSubmit={handleSubmit}>
+        <input
+          className={style.input}
+          type="text"
+          name="search"
+          defaultValue={value}
+          placeholder="Search movies..."
+        />
+        <button className={style.btn} type="submit">
+          Search
+        </button>
       </form>
     </div>
   );
