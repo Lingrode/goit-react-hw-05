@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import clsx from "clsx";
 import GoBackBtn from "../../components/GoBackBtn/GoBackBtn";
+import Loader from "../../components/Loader/Loader";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import { fetchMovieById } from "../../services/api";
 import { formatYear } from "../../helpers/formatDate";
 import style from "./MovieDetailsPage.module.css";
@@ -11,17 +13,19 @@ const MovieDetailsPage = () => {
   const location = useLocation();
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const backLinkHref = useRef(location.state ?? "/movies");
 
   useEffect(() => {
     const getMovieById = async () => {
       try {
+        setIsError(false);
         setIsLoading(true);
         const movieDetails = await fetchMovieById(movieId);
         setMovie(movieDetails);
       } catch (error) {
-        console.log(error);
+        setIsError(true);
       } finally {
         setIsLoading(false);
       }
@@ -37,10 +41,12 @@ const MovieDetailsPage = () => {
     return Math.round(score * 10);
   };
 
+  if (isError) return <ErrorMessage />;
+
   return (
     <>
       {isLoading ? (
-        <p>Loading...</p>
+        <Loader />
       ) : (
         <>
           <div className={style.details}>

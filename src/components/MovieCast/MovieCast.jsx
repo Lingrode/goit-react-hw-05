@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import MovieCastItem from "../MovieCastItem/MovieCastItem";
+import Loader from "../Loader/Loader";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import { fetchMovieCast } from "../../services/api";
 import style from "./MovieCast.module.css";
 
@@ -8,15 +10,17 @@ const MovieCast = () => {
   const { movieId } = useParams();
   const [movieCast, setMovieCast] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const getMovieCast = async () => {
       try {
+        setIsError(false);
         setIsLoading(true);
         const { cast } = await fetchMovieCast(movieId);
         setMovieCast(cast);
       } catch (error) {
-        console.log(error);
+        setIsError(true);
       } finally {
         setIsLoading(false);
       }
@@ -28,9 +32,11 @@ const MovieCast = () => {
   return (
     <div className={style.container}>
       <div className={style.list}>
-        {isLoading && <p>Loading...</p>}
+        {isLoading && <Loader />}
 
-        {isLoading === false && movieCast.length === 0 ? (
+        {isError && <ErrorMessage />}
+
+        {!isLoading && !isError && movieCast.length === 0 ? (
           <p>No cast info 😕</p>
         ) : (
           movieCast.map(({ id, name, profile_path, character }) => {

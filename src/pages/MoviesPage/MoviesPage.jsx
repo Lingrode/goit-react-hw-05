@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { fetchMovieByQuery } from "../../services/api";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import MovieList from "../../components/MovieList/MovieList";
+import Loader from "../../components/Loader/Loader";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+import { fetchMovieByQuery } from "../../services/api";
 
 const MoviesPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  // const [searchValue, setSearchValue] = useState(movieName);
   const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
   const movieName = searchParams.get("query") ?? "";
 
   useEffect(() => {
@@ -16,12 +19,18 @@ const MoviesPage = () => {
       setMovies([]);
       return;
     }
-    const getMovieByQuery = async () => {
-      const { results } = await fetchMovieByQuery(movieName);
-      // searchParams.set("query", movieName);
 
-      // setSearchParams(searchParams);
-      setMovies(results);
+    const getMovieByQuery = async () => {
+      try {
+        setIsError(false);
+        setIsLoading(true);
+        const { results } = await fetchMovieByQuery(movieName);
+        setMovies(results);
+      } catch (error) {
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     getMovieByQuery();
@@ -35,7 +44,15 @@ const MoviesPage = () => {
     <div>
       <SearchBar value={movieName} setSearchValue={handleSearch} />
 
-      <MovieList movies={movies} />
+      {isLoading && <Loader />}
+
+      {isError && <ErrorMessage />}
+
+      {!isLoading && !isError && movies.length === 0 ? (
+        <p style={{ textAlign: "center" }}>No movies 😕</p>
+      ) : (
+        <MovieList movies={movies} />
+      )}
     </div>
   );
 };
