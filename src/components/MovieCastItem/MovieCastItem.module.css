@@ -1,0 +1,25 @@
+.item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 150px;
+  border: 1px solid #c3c3c3;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.content {
+  padding: 10px;
+  flex: 1;
+}
+
+.content h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.content p {
+  font-size: 16px;
+}

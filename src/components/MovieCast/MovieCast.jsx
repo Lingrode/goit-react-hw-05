@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import MovieCastItem from "../MovieCastItem/MovieCastItem";
 import { fetchMovieCast } from "../../services/api";
+import style from "./MovieCast.module.css";
 
 const MovieCast = () => {
   const { movieId } = useParams();
@@ -16,14 +18,19 @@ const MovieCast = () => {
   }, [movieId]);
 
   return (
-    <div>
-      {movieCast.map((item) => {
-        return (
-          <div key={item.id}>
-            <h2>{item.name}</h2>
-          </div>
-        );
-      })}
+    <div className={style.container}>
+      <div className={style.list}>
+        {movieCast.map(({ id, name, profile_path, character }) => {
+          return (
+            <MovieCastItem
+              key={id}
+              name={name}
+              imageUrl={profile_path}
+              character={character}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };

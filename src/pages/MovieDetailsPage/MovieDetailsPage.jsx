@@ -1,5 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, Outlet, useLocation, useParams } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useLocation,
+  useParams,
+} from "react-router-dom";
+import clsx from "clsx";
 import { fetchMovieById } from "../../services/api";
 import { formatYear } from "../../helpers/formatDate";
 import style from "./MovieDetailsPage.module.css";
@@ -27,6 +34,9 @@ const MovieDetailsPage = () => {
 
     getMovieById();
   }, [movieId]);
+
+  const getNavLinkClass = (isActive) =>
+    clsx(style.link, { [style.active]: isActive });
 
   const roundScore = (score) => {
     return Math.round(score * 10);
@@ -73,12 +83,18 @@ const MovieDetailsPage = () => {
             <div className={style.container}>
               <h3>Additional Info</h3>
               <div className={style.links}>
-                <Link to="cast" className={style.link}>
+                <NavLink
+                  to="cast"
+                  className={({ isActive }) => getNavLinkClass(isActive)}
+                >
                   Cast
-                </Link>
-                <Link to="reviews" className={style.link}>
+                </NavLink>
+                <NavLink
+                  to="reviews"
+                  className={({ isActive }) => getNavLinkClass(isActive)}
+                >
                   Reviews
-                </Link>
+                </NavLink>
               </div>
             </div>
             <Outlet />
