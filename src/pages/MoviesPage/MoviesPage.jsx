@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import Header from "../../components/Header/Header";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import MovieList from "../../components/MovieList/MovieList";
 import Loader from "../../components/Loader/Loader";
@@ -42,6 +43,8 @@ const MoviesPage = () => {
 
   return (
     <div>
+      <Header />
+
       <SearchBar value={movieName} setSearchValue={handleSearch} />
 
       {isLoading && <Loader />}

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import MovieList from "../../components/MovieList/MovieList";
 import Loader from "../../components/Loader/Loader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+import Header from "../../components/Header/Header";
 import { fetchMovies } from "../../services/api";
 import style from "./Home.module.css";
 
@@ -29,6 +30,7 @@ const Home = () => {
 
   return (
     <div>
+      <Header />
       <div className={style.container}>
         <h1 className={style.title}>Trending movies today</h1>
       </div>

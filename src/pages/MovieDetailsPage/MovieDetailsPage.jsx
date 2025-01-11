@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import clsx from "clsx";
+import Header from "../../components/Header/Header";
 import GoBackBtn from "../../components/GoBackBtn/GoBackBtn";
 import Loader from "../../components/Loader/Loader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
@@ -50,6 +51,7 @@ const MovieDetailsPage = () => {
       ) : (
         <>
           <div className={style.details}>
+            <Header />
             <div className={style.container}>
               <GoBackBtn link={backLinkHref.current}>Go back</GoBackBtn>
               <div className={style.wrapper}>
