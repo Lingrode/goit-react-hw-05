@@ -1,0 +1,63 @@
+.details, .info {
+  padding-bottom: 40px;
+  margin-bottom: 40px;
+  border-bottom: 2px solid #a7a7a7;
+}
+
+.container {
+  max-width: 1440px;
+  padding: 0 30px;
+  margin: 0 auto;
+}
+
+.wrapper {
+  display: flex;
+  gap: 40px;
+}
+
+.wrapper img {
+  max-width: 300px;
+}
+
+.title span:last-child {
+  color: #818181;
+  font-weight: 500;
+  font-size: 34px;
+}
+
+.genres {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.score {
+  margin-bottom: 20px;
+}
+
+.score span {
+  font-weight: 600;
+}
+
+.tagline {
+  font-style: italic;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.overview h3 {
+  font-size: 26px;
+}
+
+.overview p {
+  font-size: 20px;
+}
+
+.info h3 {
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+
+.links {
+  display: flex;
+  gap: 20px;
+}

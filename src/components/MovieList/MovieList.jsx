@@ -6,22 +6,24 @@ const MovieList = ({ movies }) => {
   const location = useLocation();
 
   return (
-    <ul className={style.list}>
-      {movies.map(({ id, title, poster_path, overview, release_date }) => {
-        return (
-          <li key={id} className={style.item}>
-            <MovieItem
-              title={title}
-              imageUrl={poster_path}
-              about={overview}
-              release={release_date}
-              id={id}
-              location={location}
-            />
-          </li>
-        );
-      })}
-    </ul>
+    <div className={style.container}>
+      <ul className={style.list}>
+        {movies.map(({ id, title, poster_path, overview, release_date }) => {
+          return (
+            <li key={id} className={style.item}>
+              <MovieItem
+                title={title}
+                imageUrl={poster_path}
+                about={overview}
+                release={release_date}
+                id={id}
+                location={location}
+              />
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 };
 

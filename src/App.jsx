@@ -18,18 +18,16 @@ const App = () => {
           <Navigation />
         </div>
       </header>
-      <div className={style.container}>
-        <div className={style.content}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/movies" element={<MoviesPage />} />
-            <Route path="/movies/:movieId" element={<MovieDetailsPage />}>
-              <Route path="cast" element={<MovieCast />} />
-              <Route path="reviews" element={<MovieReviews />} />
-            </Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </div>
+      <div className={style.content}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/movies" element={<MoviesPage />} />
+          <Route path="/movies/:movieId" element={<MovieDetailsPage />}>
+            <Route path="cast" element={<MovieCast />} />
+            <Route path="reviews" element={<MovieReviews />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </div>
     </>
   );

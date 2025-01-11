@@ -8,19 +8,21 @@ const SearchBar = ({ setSearchValue, value }) => {
   };
 
   return (
-    <div className={style.wrapper}>
-      <form className={style.form} onSubmit={handleSubmit}>
-        <input
-          className={style.input}
-          type="text"
-          name="search"
-          defaultValue={value}
-          placeholder="Search movies..."
-        />
-        <button className={style.btn} type="submit">
-          Search
-        </button>
-      </form>
+    <div className={style.container}>
+      <div className={style.wrapper}>
+        <form className={style.form} onSubmit={handleSubmit}>
+          <input
+            className={style.input}
+            type="text"
+            name="search"
+            defaultValue={value}
+            placeholder="Search movies..."
+          />
+          <button className={style.btn} type="submit">
+            Search
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

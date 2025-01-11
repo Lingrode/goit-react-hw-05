@@ -1,6 +1,6 @@
 import style from "./NoPoster.module.css";
 
-const NoPoster = ({ children }) => {
+const NoPoster = () => {
   return <div className={style.wrapper}> No image 😕</div>;
 };
 

@@ -1,3 +1,9 @@
+.container {
+  max-width: 1440px;
+  padding: 0 30px;
+  margin: 0 auto;
+}
+
 .item {
   margin-bottom: 30px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
